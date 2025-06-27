@@ -1,0 +1,23 @@
+name: Build Docker Image # Nome do workflow, aparece no GitHub Actions
+
+on: # Define quando o workflow será executado
+  push: # Quando houver push
+    branches: [ "main" ] # ...na branch main
+  pull_request: # Quando houver pull request
+    branches: [ "main" ] # ...na branch main
+
+jobs: # Define os jobs (tarefas) do workflow
+  build: # Nome do job
+    runs-on: ubuntu-latest # Runner (máquina virtual) que executa o job
+
+    steps: # Passos do job
+      - uses: actions/checkout@v4
+        # Faz o checkout do código do repositório para a máquina do runner
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        # Prepara o ambiente para builds Docker avançados (Buildx)
+
+      - name: Build Docker image
+        run: docker build -t nginx-demo .
+        # Executa o comando para buildar a imagem Docker com a tag "nginx-demo"
